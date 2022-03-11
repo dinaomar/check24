@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment1">
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.example.check24app.ui.fragments.all.AllProductsFragment"
+        android:label="all_products_fragment"
+        tools:layout="@layout/all_products_fragment" />
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.check24app.ui.fragments.available.AvialbleFragment"
+        android:label="avialble_fragment"
+        tools:layout="@layout/avialble_fragment" />
+    <fragment
+        android:id="@+id/fragment3"
+        android:name="com.example.check24app.ui.fragments.favorites.FavoritesFragment"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" />
+</navigation>

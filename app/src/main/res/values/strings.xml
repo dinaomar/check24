@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Check24App</string>
+
+    <!--    bottom navigation-->
+    <string name="fragment_all">All</string>
+    <string name="fragment_available">Available</string>
+    <string name="fragment_favorites">Favorites</string>
+
 </resources>
