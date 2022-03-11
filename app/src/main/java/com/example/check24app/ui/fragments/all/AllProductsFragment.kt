@@ -2,6 +2,7 @@ package com.example.check24app.ui.fragments.all
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.renderscript.Float4
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,21 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.check24app.R
 import com.example.check24app.databinding.AllProductsFragmentBinding
+import com.example.check24app.model.Product
 import com.example.check24app.ui.adapters.recycler.ProductsRecyclerAdapter
 import com.example.check24app.utils.NetworkResult
 import com.example.check24app.utils.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AllProductsFragment : Fragment() {
+class AllProductsFragment : Fragment(), ProductsRecyclerAdapter.onItemClick {
 
-    private val mAdapter: ProductsRecyclerAdapter by lazy { ProductsRecyclerAdapter() }
+    private val mAdapter: ProductsRecyclerAdapter by lazy { ProductsRecyclerAdapter(this) }
     private lateinit var viewModel: AllProductsViewModel
     lateinit var productsRecyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
@@ -74,5 +77,22 @@ class AllProductsFragment : Fragment() {
             }
         })
     }
+
+    override fun itemClicked(item: Product) {
+        navigateToDetailsFragment(item)
+    }
+
+    private fun navigateToDetailsFragment(item: Product) {
+        val bundle = Bundle()
+        bundle.putString("imageUrl", item.imageURL)
+        bundle.putDouble("price", item.price.value)
+        bundle.putString("currency", item.price.currency)
+        bundle.putDouble("rating", item.rating)
+        bundle.putString("description", item.description)
+        bundle.putInt("release_date", item.releaseDate)
+        bundle.putString("name", item.name)
+        findNavController().navigate(R.id.detailsFragment, bundle)
+    }
+
 
 }

@@ -8,16 +8,20 @@ import com.example.check24app.databinding.ProductItemBinding
 import com.example.check24app.model.Product
 import com.example.check24app.model.Products
 
-class ProductsRecyclerAdapter : RecyclerView.Adapter<ProductsRecyclerAdapter.ProductViewHolder>() {
+class ProductsRecyclerAdapter(private val itemClickListener: onItemClick) :
+    RecyclerView.Adapter<ProductsRecyclerAdapter.ProductViewHolder>() {
 
     private var products = emptyList<Product>()
 
 
     class ProductViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(recipe: Product) {
-            binding.product = recipe
+        fun bind(response: Product, listener: onItemClick) {
+            binding.product = response
             binding.executePendingBindings()
+            binding.root.setOnClickListener {
+                listener.itemClicked(response)
+            }
         }
 
         companion object {
@@ -34,7 +38,7 @@ class ProductsRecyclerAdapter : RecyclerView.Adapter<ProductsRecyclerAdapter.Pro
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(products[position])
+        holder.bind(products[position], itemClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -46,6 +50,10 @@ class ProductsRecyclerAdapter : RecyclerView.Adapter<ProductsRecyclerAdapter.Pro
         val diffUtilResult = DiffUtil.calculateDiff(diffUtil)
         products = foodRecipe.products
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    interface onItemClick {
+        fun itemClicked(item: Product)
     }
 
 

@@ -9,7 +9,31 @@
         android:id="@+id/fragment1"
         android:name="com.example.check24app.ui.fragments.all.AllProductsFragment"
         android:label="all_products_fragment"
-        tools:layout="@layout/all_products_fragment" />
+        tools:layout="@layout/all_products_fragment">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="integer" />
+        <argument
+            android:name="currency"
+            app:argType="string" />
+
+        <argument
+            android:name="description"
+            app:argType="string" />
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+
+        <argument
+            android:name="release_date"
+            app:argType="integer" />
+
+
+    </fragment>
     <fragment
         android:id="@+id/fragment2"
         android:name="com.example.check24app.ui.fragments.available.AvialbleFragment"
@@ -20,4 +44,9 @@
         android:name="com.example.check24app.ui.fragments.favorites.FavoritesFragment"
         android:label="favorites_fragment"
         tools:layout="@layout/favorites_fragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.check24app.ui.fragments.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>
