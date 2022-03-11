@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.check24app.R
+import com.example.check24app.databinding.AllProductsFragmentBinding
 import com.example.check24app.ui.adapters.recycler.ProductsRecyclerAdapter
 import com.example.check24app.utils.NetworkResult
 import com.example.check24app.utils.observeOnce
@@ -24,13 +26,15 @@ class AllProductsFragment : Fragment() {
     private lateinit var viewModel: AllProductsViewModel
     lateinit var productsRecyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-
+    lateinit var binding: AllProductsFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.all_products_fragment, container, false)
         viewModel = ViewModelProvider(this)[AllProductsViewModel::class.java]
-        return inflater.inflate(R.layout.all_products_fragment, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +58,10 @@ class AllProductsFragment : Fragment() {
             when (result) {
                 is NetworkResult.Success -> {
                     progressBar.visibility = View.GONE
-                    result.data?.let { mAdapter.setData(it) }
+                    result.data?.let {
+                        mAdapter.setData(it)
+                        binding.header = it.header
+                    }
                 }
                 is NetworkResult.Error -> {
                     progressBar.visibility = View.GONE

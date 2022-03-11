@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.check24app.R
+import java.text.ParseException
+import java.text.SimpleDateFormat
 
 class ProductsRowBinding {
 
@@ -13,8 +15,11 @@ class ProductsRowBinding {
 
         @BindingAdapter("setNumbers")
         @JvmStatic
-        fun setNumbers(textView: TextView, value: Int) {
-            textView.text = value.toString()
+        fun setNumbers(textView: TextView, value: Double) {
+            // this EUR should be dynamic in next stage :)
+            val stringConcat =
+                textView.context.getString(R.string.price) + ": " + value.toString() + "EUR"
+            textView.text = stringConcat
         }
 
         @BindingAdapter("loadImageFromUrl")
@@ -30,6 +35,20 @@ class ProductsRowBinding {
         @JvmStatic
         fun setRating(ratingbar: RatingBar, rating: Double) {
             ratingbar.rating = rating.toFloat()
+        }
+
+        @BindingAdapter("setDate")
+        @JvmStatic
+        fun setDate(textView: TextView, release_date: Int) {
+            var outputDate = ""
+            try {
+                val postFormater = SimpleDateFormat("MMM dd, yyyy")
+                outputDate = postFormater.format(release_date)
+                textView.text = outputDate
+            } catch (e: ParseException) {
+                e.printStackTrace()
+                textView.text = ""
+            }
         }
 
     }

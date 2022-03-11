@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".ui.fragments.all.AllProductsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    <data>
 
-    <TextView
-        android:id="@+id/header_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Header Title" />
+        <variable
+            name="header"
+            type="com.example.check24app.model.Header" />
+    </data>
 
-    <TextView
-        android:id="@+id/description_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header_tv"
-        android:text="Header description" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/products_rv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/description_tv"
-        android:layout_marginTop="20dp" />
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".ui.fragments.all.AllProductsFragment">
 
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/header_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{header.headerTitle}" />
+
+        <TextView
+            android:id="@+id/description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_tv"
+            android:text="@{header.headerDescription}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/products_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/description_tv"
+            android:layout_marginTop="20dp" />
+
+    </RelativeLayout>
+</layout>
